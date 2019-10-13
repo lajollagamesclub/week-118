@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="TitleScreen" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Space Invaders"
+align = 1
+valign = 1
