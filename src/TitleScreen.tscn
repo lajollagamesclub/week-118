@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://manaspc.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://QuitButton.gd" type="Script" id=3]
+[ext_resource path="res://TravelButon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://QuitButton.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -34,18 +35,14 @@ margin_right = 700.0
 margin_bottom = 900.0
 size_flags_vertical = 3
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
-margin_right = 700.0
-margin_bottom = 146.0
-size_flags_vertical = 3
-text = "Play"
+[node name="PlayButton" parent="CanvasLayer/VBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
+target_scene = "res://Main.tscn"
 
-[node name="CreditsButton" type="Button" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+[node name="CredisButton" parent="CanvasLayer/VBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 150.0
-margin_right = 700.0
 margin_bottom = 296.0
-size_flags_vertical = 3
 text = "Credits"
+target_scene = "res://Credits.tscn"
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
 margin_top = 300.0
@@ -53,5 +50,5 @@ margin_right = 700.0
 margin_bottom = 448.0
 size_flags_vertical = 3
 text = "Quit"
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/VBoxContainer/VBoxContainer/QuitButton" method="_on_QuitButton_pressed"]
