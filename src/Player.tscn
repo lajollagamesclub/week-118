@@ -10,6 +10,7 @@ extents = Vector2( 37.6063, 25.7575 )
 "hittable",
 ]]
 script = ExtResource( 1 )
+bullet_cooldown = 0.25
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
