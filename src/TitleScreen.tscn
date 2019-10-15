@@ -3,7 +3,7 @@
 [ext_resource path="res://main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://manaspc.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://TravelButon.tscn" type="PackedScene" id=3]
-[ext_resource path="res://QuitButton.gd" type="Script" id=4]
+[ext_resource path="res://QuitButton.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -44,11 +44,4 @@ margin_bottom = 296.0
 text = "Credits"
 target_scene = "res://Credits.tscn"
 
-[node name="QuitButton" type="Button" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
-margin_top = 300.0
-margin_right = 700.0
-margin_bottom = 448.0
-size_flags_vertical = 3
-text = "Quit"
-script = ExtResource( 4 )
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/VBoxContainer/VBoxContainer/QuitButton" method="_on_QuitButton_pressed"]
+[node name="QuitButton" parent="CanvasLayer/VBoxContainer/VBoxContainer" instance=ExtResource( 4 )]
