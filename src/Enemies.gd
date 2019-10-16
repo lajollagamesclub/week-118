@@ -8,22 +8,46 @@ export var movement_time = 0.3
 
 var cur_move_counter = 0.0
 var direction = 1.0
-onready var horizontal_length: int = int(enemy_dimensions.y)
+var right_missing: int = 0
+var left_missing: int = 0
 
 var enemies = [[]]
-
-func _process(delta):
-	cur_move_counter += delta
-	if cur_move_counter >= movement_time:
-		for enemy in get_children():
-			enemy.move(direction)
-		cur_move_counter = 0.0
 
 func _ready():
 	if Engine.editor_hint:
 		set_process(false)
 	else:
 		set_process(true)
+
+func is_column_empty(column_index: int) -> bool:
+	for r in enemies:
+		if r[column_index] != null:
+			return false
+	return true
+
+func _process(delta):
+	cur_move_counter += delta
+	if cur_move_counter >= movement_time:
+		# update left/right missing index
+		var right_column_index = int(enemy_dimensions.y) - 1 - right_missing
+		var left_column_index = left_missing
+		if is_column_empty(right_column_index):
+			right_missing += 1
+		if is_column_empty(left_column_index):
+			left_missing += 1
+
+		# apply direction based on missing columns
+		var screen_width = ProjectSettings.get_setting("display/window/size/width")
+		if global_position.x + float(enemy_square_length * (int(enemy_dimensions.y) - right_missing)) > screen_width:
+			direction = -1.0
+
+		if global_position.x + float(enemy_square_length * left_missing) < 0:
+			direction = 1.0
+
+		# apply direction
+		global_position.x += enemy_square_length/4*direction
+
+		cur_move_counter = 0.0
 
 func generate_enemies():
 	enemies.clear()

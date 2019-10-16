@@ -4,7 +4,7 @@
 [ext_resource path="res://player.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12.4826, 6.40803 )
+extents = Vector2( 42.9419, 34.1408 )
 
 [node name="Player" type="Area2D" groups=[
 "hittable",
@@ -15,8 +15,8 @@ bullet_cooldown = 0.25
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 3, 3 )
 texture = ExtResource( 2 )
-offset = Vector2( 0, -4.5 )
+offset = Vector2( 1, -6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -0.2 )
+position = Vector2( 0, -10.68 )
 shape = SubResource( 1 )
