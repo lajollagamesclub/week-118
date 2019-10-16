@@ -19,7 +19,7 @@ func _process(delta):
 		cur_bullet.global_position = global_position
 		cur_bullet.rotation = deg2rad(-90)
 		get_parent().add_child(cur_bullet)
-	
+
 	cur_bullet_recharge_time += delta
 
 func hit(damage: float):
