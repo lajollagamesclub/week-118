@@ -76,11 +76,11 @@ func remove_enemies():
 
 func next_round():
 	remove_enemies()
-	generate_enemies()
 	left_missing = 0
 	right_missing = 0
 	direction = 1.0
 	global_position = Vector2()
+	generate_enemies()
 
 func set_enemy_square_length(new_enemy_square_length):
 	enemy_square_length = new_enemy_square_length
