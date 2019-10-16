@@ -15,3 +15,8 @@ func set_alien_type(in_alien_type):
 		return
 	alien_type = in_alien_type
 	$AnimatedSprite.frames = load(str("res://aliens/", alien_type, "/frames.tres"))
+
+func hit(damage):
+	emit_signal("dead", coordinate)
+	GameState.score += 1
+	queue_free()

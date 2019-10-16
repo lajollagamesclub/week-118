@@ -13,7 +13,7 @@ script = ExtResource( 2 )
 enemy_scene = ExtResource( 3 )
 enemy_square_length = 120
 enemy_dimensions = Vector2( 5, 5 )
-movement_time = 0.5
+movement_time = 0.1
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 350, 850 )

@@ -26,28 +26,28 @@ func is_column_empty(column_index: int) -> bool:
 	return true
 
 func _process(delta):
-	cur_move_counter += delta
-	if cur_move_counter >= movement_time:
-		# update left/right missing index
-		var right_column_index = int(enemy_dimensions.y) - 1 - right_missing
-		var left_column_index = left_missing
-		if is_column_empty(right_column_index):
-			right_missing += 1
-		if is_column_empty(left_column_index):
-			left_missing += 1
+#	cur_move_counter += delta
+#	if cur_move_counter >= movement_time:
+	# update left/right missing index
+	var right_column_index = int(enemy_dimensions.y) - 1 - right_missing
+	var left_column_index = left_missing
+	if is_column_empty(right_column_index):
+		right_missing += 1
+	if is_column_empty(left_column_index):
+		left_missing += 1
 
-		# apply direction based on missing columns
-		var screen_width = ProjectSettings.get_setting("display/window/size/width")
-		if global_position.x + float(enemy_square_length * (int(enemy_dimensions.y) - right_missing)) > screen_width:
-			direction = -1.0
+	# apply direction based on missing columns
+	var screen_width = ProjectSettings.get_setting("display/window/size/width")
+	if global_position.x + float(enemy_square_length * (int(enemy_dimensions.y) - right_missing)) > screen_width:
+		direction = -1.0
 
-		if global_position.x + float(enemy_square_length * left_missing) < 0:
-			direction = 1.0
+	if global_position.x + float(enemy_square_length * left_missing) < 0:
+		direction = 1.0
 
-		# apply direction
-		global_position.x += enemy_square_length/4*direction
+	# apply direction
+	global_position.x += 100.0*delta*direction
 
-		cur_move_counter = 0.0
+	cur_move_counter = 0.0
 
 func generate_enemies():
 	enemies.clear()
@@ -64,6 +64,11 @@ func generate_enemies():
 
 func _on_enemy_death(coordinate):
 	enemies[coordinate.x][coordinate.y] = null
+	for r in range(enemies.size()):
+		for c in range(enemies[0].size()):
+			if enemies[r][c] != null:
+				return
+	next_round()
 
 func remove_enemies():
 	for c in get_children():
@@ -72,6 +77,10 @@ func remove_enemies():
 func next_round():
 	remove_enemies()
 	generate_enemies()
+	left_missing = 0
+	right_missing = 0
+	direction = 1.0
+	global_position = Vector2()
 
 func set_enemy_square_length(new_enemy_square_length):
 	enemy_square_length = new_enemy_square_length
