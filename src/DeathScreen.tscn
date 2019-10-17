@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://manaspc.ttf" type="DynamicFontData" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://RetryButton.gd" type="Script" id=4]
 [ext_resource path="res://TravelButon.tscn" type="PackedScene" id=5]
 [ext_resource path="res://QuitButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player_Death.wav" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -52,4 +53,9 @@ text = "Credits"
 target_scene = "res://Credits.tscn"
 
 [node name="QuitButton" parent="UI/VBoxContainer/Buttons" instance=ExtResource( 6 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -6.24
+autoplay = true
 [connection signal="pressed" from="UI/VBoxContainer/Buttons/RetryButton" to="UI/VBoxContainer/Buttons/RetryButton" method="_on_RetryButton_pressed"]

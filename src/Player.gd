@@ -19,10 +19,12 @@ func _process(delta):
 		cur_bullet.global_position = global_position
 		cur_bullet.rotation = deg2rad(-90)
 		get_parent().add_child(cur_bullet)
+		$AttackStreamPlayer.play()
 
 	cur_bullet_recharge_time += delta
 
 func hit(damage: float):
+	$DamageStreamPlayer.play()
 	self.health -= damage
 
 func set_health(new_health):

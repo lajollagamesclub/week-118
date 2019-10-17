@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Enemy_Death.wav" type="AudioStream" id=1]
+[ext_resource path="res://EnemyStreamPlayer.gd" type="Script" id=2]
+
+[node name="EnemyStreamPlayer" type="AudioStreamPlayer2D"]
+stream = ExtResource( 1 )
+volume_db = -5.18
+script = ExtResource( 2 )
+[connection signal="finished" from="." to="." method="_on_EnemyStreamPlayer_finished"]

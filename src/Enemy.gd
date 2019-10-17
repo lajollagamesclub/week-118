@@ -37,6 +37,7 @@ func _process(delta):
 			cur_bullet.to_ignore.append(self)
 			cur_bullet.rotation = deg2rad(90)
 			cur_bullet.global_position = global_position
+			$AttackStreamPlayer.play()
 			$AnimatedSprite.play("attack")
 			$AnimatedSprite.frame = 0
 			
@@ -52,4 +53,7 @@ func hit(damage):
 	if health <= 0.0:
 		emit_signal("dead", coordinate)
 		GameState.score += 1
+		var new_stream_player = preload("res://EnemyStreamPlayer.tscn").instance()
+		get_parent().add_child(new_stream_player)
+		new_stream_player.global_position = global_position
 		queue_free()
