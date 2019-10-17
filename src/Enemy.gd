@@ -6,8 +6,8 @@ signal dead(coordinate)
 const movement_fraction = 4.0
 
 export var alien_type: int = 1 setget set_alien_type
-export var min_firing_rate = 0.5
-export (float) var max_firing_rate: float = 4.0
+export var min_firing_rate = 2.0
+export (float) var max_firing_rate: float = 4.50
 export (Curve) var firing_curve
 
 var coordinate: Vector2 = Vector2()
@@ -30,7 +30,7 @@ func _process(delta):
 		var height_index = global_position.y/ProjectSettings.get_setting("display/window/size/width")
 		var fire_influence = firing_curve.interpolate(height_index)
 		var lerped_max = lerp(max_firing_rate, min_firing_rate, fire_influence)
-		cur_fire_timer_length = rand_range(0.5, lerped_max)
+		cur_fire_timer_length = rand_range(0.0, lerped_max)
 		if bottom:
 			var cur_bullet = preload("res://Bullet.tscn").instance()
 			get_parent().add_child(cur_bullet)

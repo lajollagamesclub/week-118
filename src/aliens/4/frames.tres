@@ -1,7 +1,7 @@
 [gd_resource type="SpriteFrames" load_steps=3 format=2]
 
-[ext_resource path="res://aliens/2/Alien_II1.png" type="Texture" id=1]
-[ext_resource path="res://aliens/2/Alien_II2.png" type="Texture" id=2]
+[ext_resource path="res://aliens/4/Alien_IV1.png" type="Texture" id=1]
+[ext_resource path="res://aliens/4/Alien_IV2.png" type="Texture" id=2]
 
 [resource]
 animations = [ {
