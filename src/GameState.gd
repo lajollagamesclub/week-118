@@ -11,4 +11,5 @@ func player_dead():
 func game_start():
 	score = 0
 	alive = true
+	level = 1
 	get_tree().change_scene("res://Main.tscn")
