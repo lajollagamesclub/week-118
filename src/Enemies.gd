@@ -1,6 +1,8 @@
 tool
 extends Node2D
 
+const down_amount_divisor = 4.0
+
 export (PackedScene) var enemy_scene
 export (int) var enemy_square_length setget set_enemy_square_length
 export (Vector2) var enemy_dimensions = Vector2(5, 5) setget set_enemy_dimensions
@@ -10,6 +12,8 @@ var cur_move_counter = 0.0
 var direction = 1.0
 var right_missing: int = 0
 var left_missing: int = 0
+var progression: int = 0
+var speed = 100.0
 
 var enemies = [[]]
 
@@ -40,14 +44,14 @@ func _process(delta):
 
 	# apply direction based on missing columns
 	var screen_width = ProjectSettings.get_setting("display/window/size/width")
-	if global_position.x + float(enemy_square_length * (int(enemy_dimensions.y) - right_missing)) > screen_width:
-		direction = -1.0
-
-	if global_position.x + float(enemy_square_length * left_missing) < 0:
-		direction = 1.0
+	if global_position.x + float(enemy_square_length * (int(enemy_dimensions.y) - right_missing)) > screen_width or \
+	global_position.x + float(enemy_square_length * left_missing) < 0:
+		direction *= -1
+		global_position.y += enemy_square_length/down_amount_divisor
+		speed += float(GameState.level)*3.0
 
 	# apply direction
-	global_position.x += 100.0*delta*direction
+	global_position.x += speed*delta*direction
 
 	cur_move_counter = 0.0
 
@@ -57,13 +61,12 @@ func generate_enemies():
 		enemies.append([])
 		for column in range(int(enemy_dimensions.y)):
 			var cur_enemy = enemy_scene.instance()
-			add_child(cur_enemy)
+			call_deferred("add_child", cur_enemy)
 			cur_enemy.global_position = Vector2(column * enemy_square_length, row * enemy_square_length) + Vector2(enemy_square_length, enemy_square_length)/2
 			cur_enemy.alien_type = 6 - (int(row) + 1)
 			cur_enemy.coordinate = Vector2(row, column)
 			cur_enemy.connect("dead", self, "_on_enemy_death")
 			enemies[row].append(cur_enemy)
-	print(enemy_dimensions)
 	for bottom_enemy in enemies[int(enemy_dimensions.x) - 1]:
 		bottom_enemy.bottom = true
 
@@ -80,6 +83,7 @@ func remove_enemies():
 		c.queue_free()
 
 func next_round():
+	GameState.level += 1
 	remove_enemies()
 	left_missing = 0
 	right_missing = 0

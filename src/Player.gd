@@ -1,7 +1,7 @@
 extends Area2D
 
 export var player_velocity = 500.0
-export var bullet_cooldown = 1.0
+export var bullet_cooldown = 0.4
 
 var health: int = 5 setget set_health
 var cur_bullet_recharge_time: float = 0.0
@@ -12,8 +12,8 @@ func _process(delta):
 	global_position.x += horizontal*player_velocity*delta
 	global_position.x = clamp(global_position.x,  $Sprite.texture.get_size().x/2, ProjectSettings.get_setting("display/window/size/width") - $Sprite.texture.get_size().x/2)
 	
-	if Input.is_action_pressed("g_fire") and cur_bullet_recharge_time >= bullet_cooldown:
-		cur_bullet_recharge_time = 0.0
+	if Input.is_action_pressed("g_fire") and cur_bullet_recharge_time >= bullet_cooldown/float(GameState.level):
+		cur_bullet_recharge_time = 0.00 
 		var cur_bullet = preload("res://Bullet.tscn").instance()
 		cur_bullet.to_ignore.append(self)
 		cur_bullet.global_position = global_position
