@@ -3,7 +3,7 @@ extends Node2D
 
 export (PackedScene) var enemy_scene
 export (int) var enemy_square_length setget set_enemy_square_length
-export (Vector2) var enemy_dimensions setget set_enemy_dimensions
+export (Vector2) var enemy_dimensions = Vector2(5, 5) setget set_enemy_dimensions
 export var movement_time = 0.3
 
 var cur_move_counter = 0.0
@@ -18,6 +18,8 @@ func _ready():
 		set_process(false)
 	else:
 		set_process(true)
+	remove_enemies()
+	generate_enemies()
 
 func is_column_empty(column_index: int) -> bool:
 	for r in enemies:
@@ -61,6 +63,9 @@ func generate_enemies():
 			cur_enemy.coordinate = Vector2(row, column)
 			cur_enemy.connect("dead", self, "_on_enemy_death")
 			enemies[row].append(cur_enemy)
+	print(enemy_dimensions)
+	for bottom_enemy in enemies[int(enemy_dimensions.x) - 1]:
+		bottom_enemy.bottom = true
 
 func _on_enemy_death(coordinate):
 	enemies[coordinate.x][coordinate.y] = null
@@ -84,10 +89,12 @@ func next_round():
 
 func set_enemy_square_length(new_enemy_square_length):
 	enemy_square_length = new_enemy_square_length
-	remove_enemies()
-	generate_enemies()
+	if Engine.editor_hint:
+		remove_enemies()
+		generate_enemies()
 
 func set_enemy_dimensions(new_enemy_dimensions):
 	enemy_dimensions = new_enemy_dimensions
-	remove_enemies()
-	generate_enemies()
+	if Engine.editor_hint:
+		remove_enemies()
+		generate_enemies()

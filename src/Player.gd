@@ -1,7 +1,7 @@
 extends Area2D
 
 export var player_velocity = 500.0
-export var bullet_cooldown = 0.2
+export var bullet_cooldown = 1.0
 
 var health: int = 5 setget set_health
 var cur_bullet_recharge_time: float = 0.0
