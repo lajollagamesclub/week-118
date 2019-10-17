@@ -1,4 +1,3 @@
-tool
 extends Node2D
 
 const down_amount_divisor = 4.0
@@ -72,11 +71,21 @@ func generate_enemies():
 
 func _on_enemy_death(coordinate):
 	enemies[coordinate.x][coordinate.y] = null
+	
+	if no_more_enemies():
+		next_round()
+	
+	for c in range(enemies[0].size()):
+		for r in range(enemies.size() - 1):
+			if enemies[r][c] != null and enemies[r+1][c] == null:
+				enemies[r][c].bottom = true
+
+func no_more_enemies() -> bool:
 	for r in range(enemies.size()):
 		for c in range(enemies[0].size()):
 			if enemies[r][c] != null:
-				return
-	next_round()
+				return false
+	return true
 
 func remove_enemies():
 	for c in get_children():

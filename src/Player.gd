@@ -3,7 +3,7 @@ extends Area2D
 export var player_velocity = 500.0
 export var bullet_cooldown = 0.4
 
-var health: int = 5 setget set_health
+var health: int = 100 setget set_health
 var cur_bullet_recharge_time: float = 0.0
 
 func _process(delta):
@@ -26,5 +26,6 @@ func hit(damage: float):
 	self.health -= damage
 
 func set_health(new_health):
+	health = new_health
 	if new_health <= 0:
 		GameState.player_dead()

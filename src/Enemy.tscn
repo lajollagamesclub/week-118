@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Enemy.gd" type="Script" id=1]
 [ext_resource path="res://aliens/1/frames.tres" type="SpriteFrames" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.1392 ), 0.0, -0.129945, 0, 0, Vector2( 0.54068, 0.7024 ), 0.997864, 0.997864, 0, 0, Vector2( 1, 1 ), 1.27916, 0.0, 0, 0 ]
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 60, 60 )
 
 [node name="Enemy" type="Area2D" groups=[
 "hittable",
 ]]
 script = ExtResource( 1 )
+firing_curve = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 3, 3 )
@@ -19,4 +23,4 @@ frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
