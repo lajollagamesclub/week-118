@@ -47,6 +47,8 @@ func _process(delta):
 	global_position.x + float(enemy_square_length * left_missing) < 0:
 		direction *= -1
 		global_position.y += enemy_square_length/down_amount_divisor
+		if global_position.y >= ProjectSettings.get_setting("display/window/size/height"):
+			GameState.player_dead()
 		speed += float(GameState.level)*3.0
 
 	# apply direction
